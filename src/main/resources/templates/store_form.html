@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+
+<html lang="ko" layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content">
+
+    <form th:action="@{/store/create}" th:object="${storeForm}" method="post">
+        <input type="text" name="name" th:field="*{name}">
+        <input type="submit" value="음식점 등록" class="btn">
+    </form>
+
+
+
+</div>
+</html>
