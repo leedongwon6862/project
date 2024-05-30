@@ -6,9 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,25 +18,37 @@ public class StoreController {
     private final StoreService storeService;
 
     @GetMapping("/create") //화면을 보여주는것
-    public String create(StoreForm storeForm){
+    public String create(StoreForm storeForm) {
         return "store_form";
     }
 
     @PostMapping("/create") //요청을 하면 처리하는것
-    public String create(@Valid StoreForm storeform , BindingResult bindingResult){
-        if(bindingResult.hasErrors ()){
+    public String create(@Valid StoreForm storeform, BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
+        if (bindingResult.hasErrors ()) {
             return "store_form";
         }
-        storeService.save(storeform.getName ()); // 날자와 id는 안적어두된다. service 에 적어놨으니깐 ,id는 엔티티에 적어놨으니
-            return "redirect:/";
+        String url = storeService.temp_save (file);
+        storeService.save (storeform.getName (), storeform.getContent (), storeform.getLocation (),url); // 날자와 id는 안적어두된다. service 에 적어놨으니깐 ,id는 엔티티에 적어놨으니
+        return "redirect:/";
     }
 
     @GetMapping("/list")
-    public String list(Model model){
-        List<Store> storeList = storeService.getStoreList();
-        model.addAttribute ("storeList" , storeList);
+    public String list(Model model) {
+        List<Store> storeList = storeService.getStoreList ();
+        model.addAttribute ("storeList", storeList);
         return "main";
 
     }
+
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable("id") Long id, Model model) {
+        Store store = storeService.getStore (id);
+        if (store == null) {
+            return "redirect:/error";
+        }
+        model.addAttribute ("store", store);
+        return "store_detail";
+    }
+
 
 }

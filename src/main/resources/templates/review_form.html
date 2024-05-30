@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
+<div layout:fragment="content">
+    <form th:action="@{|/review/create/${id}|}" th:object="${reviewForm}" method="post">
+        <input type="text" name="title" class="input" th:field="*{title}" placeholder="제목">
+        <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+        <input type="text" name="content" class="input" th:field="*{content}" placeholder="내용">
+        <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
+        <input type="submit" class="btn" value="리뷰등록">
+    </form>
+</div>
+</html>

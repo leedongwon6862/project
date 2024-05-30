@@ -3,8 +3,11 @@
 <html lang="ko" layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content">
 
-    <form th:action="@{/store/create}" th:object="${storeForm}" method="post">
-        <input type="text" name="name" th:field="*{name}">
+    <form th:action="@{/store/create}" th:object="${storeForm}" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" class="input" th:field="*{name}" placeholder="음식점이름">
+        <input type="text" name="content" class="input" th:field="*{content}" placeholder="소개">
+        <input type="text" name="location" class="input" th:filed="*{location}" placeholder="장소">
+        <input type="file" name="file">
         <input type="submit" value="음식점 등록" class="btn">
     </form>
 

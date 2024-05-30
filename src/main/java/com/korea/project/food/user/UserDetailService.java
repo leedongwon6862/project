@@ -32,6 +32,6 @@ public class UserDetailService implements UserDetailsService {
         } else {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         }
-        return new User (siteUser.getLoginId (), siteUser.getPassword(), authorities);
+        return new UserDetail (siteUser);
     }
 }

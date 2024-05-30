@@ -22,4 +22,11 @@ public class SiteUser {
 
     private LocalDateTime createDate;
 
+    private String profile_image;
+
+    private String Role;
+
+    private String provider;
+    private String providerId;
+
 }
