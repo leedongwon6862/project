@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<html lang="ko" layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content">
+    <form th:action="@{|/store/edit/${store.id}|}" th:object="${storeForm}" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" class="input" id="name" th:field="*{name}" placeholder="음식점이름">
+        <input type="text" name="content" class="input" id="content" th:field="*{content}" placeholder="소개">
+        <input type="text" name="location" class="input" id="location" th:field="*{location}" placeholder="장소">
+        <input type="file" name="file">
+        <input type="submit" value="음식점 수정" class="btn">
+    </form>
+</div>
+</html>

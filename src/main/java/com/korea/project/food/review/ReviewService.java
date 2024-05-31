@@ -23,4 +23,14 @@ public class ReviewService {
         return review;  // 저장을 한값을 내보내줘야 하니깐 .
 
     }
+
+    public Review getReview(Long id) {
+        return reviewRepository.findById (id).orElseThrow ();
+    }
+
+    public void update(Review review, String title, String content) {
+        review.setTitle (title);
+        review.setContent (content);
+        reviewRepository.save (review);
+    }
 }

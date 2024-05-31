@@ -28,7 +28,7 @@ public class StoreController {
             return "store_form";
         }
         String url = storeService.temp_save (file);
-        storeService.save (storeform.getName (), storeform.getContent (), storeform.getLocation (),url); // 날자와 id는 안적어두된다. service 에 적어놨으니깐 ,id는 엔티티에 적어놨으니
+        storeService.save (storeform.getName (), storeform.getContent (), storeform.getLocation (), url); // 날자와 id는 안적어두된다. service 에 적어놨으니깐 ,id는 엔티티에 적어놨으니
         return "redirect:/";
     }
 
@@ -50,11 +50,40 @@ public class StoreController {
         return "store_detail";
     }
 
-  @GetMapping("/search")
-    public String search(@RequestParam("name") String name,Model model){
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Long id, Model model, StoreForm storeform) {
+        Store store = storeService.getStore (id);
+        if (store == null) {
+            return "redirect:/error";
+        }
+        model.addAttribute ("store", store);
+        storeform.setName (store.getName ());
+        storeform.setLocation (store.getLocation ());
+        storeform.setContent (store.getContent ());
+        model.addAttribute ("storeForm", storeform);
+        model.addAttribute ("url", store.getUrl ());
+        return "store_edit";
+    }
+
+    @PostMapping("/edit/{id}") //요청을 하면 처리하는것
+    public String edit(@PathVariable("id") Long id, @Valid StoreForm storeform, BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
+        if (bindingResult.hasErrors ()) {
+            return "store_form";
+        }
+        Store store = storeService.getStore (id);
+        if (store == null) {
+            return "redirect:/error";
+        }
+        String url = file.isEmpty () ? store.getUrl () : storeService.temp_save (file);
+        storeService.update (store, storeform.getName (), storeform.getContent (), storeform.getLocation (), url); // 날자와 id는 안적어두된다. service 에 적어놨으니깐 ,id는 엔티티에 적어놨으니
+        return "redirect:/";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam("name") String name, Model model) {
         List<Store> searchStore = storeService.findBySeacrh (name);
-        model.addAttribute ("searchStore",searchStore);
+        model.addAttribute ("searchStore", searchStore);
 
         return "search_store";
-  }
+    }
 }

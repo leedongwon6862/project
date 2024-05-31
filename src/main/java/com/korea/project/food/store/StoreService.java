@@ -30,6 +30,13 @@ public class StoreService {
 
         storeRepository.save (store);   // 레파지토리에  저장해야하기 때문에.
     }
+    public void update(Store store, String name, String content, String location, String url){
+        store.setName (name);
+        store.setContent (content);
+        store.setLocation (location);
+        store.setUrl (url);
+        storeRepository.save (store);
+    }
 
     public List<Store> getStoreList() {
         return storeRepository.findAll ();

@@ -1,7 +1,7 @@
 <html lang="ko" layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content">
 
-    <!-- 음식점 반복 시작 -->
+    <!-- 음식점 반복 시작  // 메인에는 음식점 리스트 만 뜨면된다. , 굳이 하나의 음식점을 특정해서 보여줄게 없기때문 질문반복은 안쓴다.-->
     <div class="card my-3" th:each="store : ${storeList}" >
         <a th:href="@{|/store/detail/${store.id}|}" class="card-link">
             <div class="card-body flex flex-row items-center*"  >
