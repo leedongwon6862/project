@@ -17,7 +17,7 @@ import java.util.List;
 public class StoreController {
     private final StoreService storeService;
 
-    @GetMapping("/create") //화면을 보여주는것
+    @GetMapping("/create") //화면을 보여주는것 // 가게등록
     public String create(StoreForm storeForm) {
         return "store_form";
     }
@@ -32,9 +32,9 @@ public class StoreController {
         return "redirect:/";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list") //메인화면
     public String list(Model model) {
-        List<Store> storeList = storeService.getStoreList ();
+        List<Store> storeList = storeService.getStoreList ();  //create 에서 만든 list 를 다보여주려고
         model.addAttribute ("storeList", storeList);
         return "main";
 
@@ -50,5 +50,11 @@ public class StoreController {
         return "store_detail";
     }
 
+  @GetMapping("/search")
+    public String search(@RequestParam("name") String name,Model model){
+        List<Store> searchStore = storeService.findBySeacrh (name);
+        model.addAttribute ("searchStore",searchStore);
 
+        return "search_store";
+  }
 }

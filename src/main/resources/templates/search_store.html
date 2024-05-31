@@ -1,0 +1,20 @@
+<html lang="ko" layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content">
+
+    <!-- 음식점 반복 시작 -->
+    <div class="card my-3" th:each="store : ${searchStore}" >
+        <a th:href="@{|/store/detail/${store.id}|}" class="card-link">
+            <div class="card-body flex flex-row items-center*"  >
+                <img th:src="@{|${store.url}|}" alt="음식점이미지"  >
+                <div class="card-text" style="white-space: pre-line;" th:text="${store.name}"></div>
+                <div class="d-flex justify-content-end">
+                    <div class="badge bg-light text-dark p-2 text-start">
+                        <div th:text="${#temporals.format(store.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+    <!-- 음식점 반복 끝  -->
+</div>

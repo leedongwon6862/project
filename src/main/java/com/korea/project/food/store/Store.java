@@ -23,9 +23,9 @@ public class Store {
     private String location;
     private String content;
     private LocalDateTime createDate;
-    private  String url;
+    private  String url; //사진넣기.
 
 
-    @OneToMany(mappedBy ="store" , cascade = CascadeType.REMOVE) // store 를 지우면 store에 관한 리뷰까지 다지워지게끔
+    @OneToMany(mappedBy ="store" , cascade = CascadeType.REMOVE) // store 를 지우면 store 에 관한 리뷰까지 다지워지게끔
     private List<Review> reviewList;
 }

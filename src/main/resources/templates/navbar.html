@@ -10,6 +10,26 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex gap-5">
                 <!-- 로그인 상태일 때만 로그아웃 링크를 표시 -->
+                <li>
+                    <!-- Open the modal using ID.showModal() method -->
+                    <button class="btn" onclick="my_modal_5.showModal()">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+                        <div class="modal-box">
+                            <form action="/store/search">
+                                <input type="text" name="name" class="input input-bordered">
+                                <input type="submit" class="btn" value="검색">
+                            </form>
+                            <div class="modal-action">
+                                <form method="dialog">
+                                    <!-- if there is a button in form, it will close the modal -->
+                                    <button class="btn">Close</button>
+                                </form>
+                            </div>
+                        </div>
+                    </dialog>
+                </li>
                 <li >
                     <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
                     <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>

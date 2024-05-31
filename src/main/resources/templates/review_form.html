@@ -8,5 +8,70 @@
         <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
         <input type="submit" class="btn" value="리뷰등록">
     </form>
+
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>별점 평가</title>
+        <style>
+            .rating {
+                display: inline-block;
+                font-size: 0;
+            }
+
+            .rating input {
+                display: none;
+            }
+
+            .rating label {
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                background-image: url('https://cdn.jsdelivr.net/npm/font-awesome@5.15.4/css/all.css');
+                background-size: contain;
+                cursor: pointer;
+                float: right;
+            }
+
+            .rating label:before {
+                content: "\f005";
+                font-family: FontAwesome;
+                font-size: 24px;
+                color: #ccc;
+            }
+
+            .rating input:checked ~ label:before {
+                color: #ffcc00;
+            }
+        </style>
+
+    <h1>회사 평가하기</h1>
+    <div class="rating">
+        <input type="radio" id="star5" name="rating" value="5">
+        <label for="star5"></label>
+        <input type="radio" id="star4" name="rating" value="4">
+        <label for="star4"></label>
+        <input type="radio" id="star3" name="rating" value="3">
+        <label for="star3"></label>
+        <input type="radio" id="star2" name="rating" value="2">
+        <label for="star2"></label>
+        <input type="radio" id="star1" name="rating" value="1">
+        <label for="star1"></label>
+    </div>
+
+
+
 </div>
+<script>
+    const ratings = document.querySelectorAll('.rating input');
+    let selectedRating;
+
+    ratings.forEach(rating => {
+        rating.addEventListener('click', () => {
+            selectedRating = rating.value;
+            console.log('Selected Rating:', selectedRating);
+            // 여기서 선택한 평점을 서버로 보내어 저장할 수 있습니다.
+        });
+    });
+</script>
 </html>
